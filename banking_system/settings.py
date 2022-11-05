@@ -25,7 +25,7 @@ SECRET_KEY = 'po0172$69b@78ps4v^uhfxu6q--8ko7kpp7rbz420s_3w#sir%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'maybank.vip', 'sampledomain.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'maybank.vip', 'maybank-vip.herokuapp.com']
 
 
 # Application definition
