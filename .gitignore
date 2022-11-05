@@ -118,3 +118,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+.github/dependabot.yml
+*.yaml
+.github/workflows/action-updater.yaml
+.github/workflows/changelog-ci.yml
