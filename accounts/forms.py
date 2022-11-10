@@ -37,8 +37,9 @@ class UserRegistrationForm(UserCreationForm):
         queryset=BankAccountType.objects.all()
     )
     gender = forms.ChoiceField(choices=GENDER_CHOICE)
-    birth_date = forms.DateField()
-
+    birth_date = forms.DateField(help_text="YYYY-MM-DD",initial="YYYY-MM-DD")
+    passport = forms.CharField()
+    signature = forms.ImageField()
     class Meta:
         model = User
         fields = [
@@ -72,12 +73,16 @@ class UserRegistrationForm(UserCreationForm):
             account_type = self.cleaned_data.get('account_type')
             gender = self.cleaned_data.get('gender')
             birth_date = self.cleaned_data.get('birth_date')
-
+            passport = self.cleaned_data.get('passport')
+            signature = self.cleaned_data.get('signature')
+            print(signature)
             UserBankAccount.objects.create(
                 user=user,
                 gender=gender,
                 birth_date=birth_date,
                 account_type=account_type,
+                passport=passport,
+                signature = signature,
                 account_no=(
                     user.id +
                     settings.ACCOUNT_NUMBER_START_FROM

@@ -10,14 +10,17 @@
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         {% if request.user.is_authenticated %}
             <div class="text-md lg:flex-grow">
+                <a href="{% url 'transactions:profile' %}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
+                    My Account
+                </a>
                 <a href="{% url 'transactions:transaction_report' %}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
-                    Transaction Report
+                    Transactions
                 </a>
                 <a href="{% url 'transactions:deposit_money' %}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4">
-                    Deposit
+                    Send Money
                 </a>
-                <a href="{% url 'transactions:withdraw_money' %}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">
-                    Withdraw
+                <a href="{% url 'transactions:loans' %}" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white">
+                    Loans
                 </a>
             </div>
             <div>

@@ -7,9 +7,10 @@ from accounts.models import UserBankAccount
 class Transaction(models.Model):
     account = models.ForeignKey(
         UserBankAccount,
-        related_name='transactions',
+        related_name='transactions_from_account',
         on_delete=models.CASCADE,
     )
+    to_account_no = models.PositiveIntegerField()
     amount = models.DecimalField(
         decimal_places=2,
         max_digits=12

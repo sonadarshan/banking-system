@@ -5,17 +5,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import CreateView, ListView
+from django.views.generic import TemplateView
 
 from transactions.constants import DEPOSIT, WITHDRAWAL
 from transactions.forms import (
     DepositForm,
     TransactionDateRangeForm,
-    WithdrawForm,
 )
 from transactions.models import Transaction
+from accounts.models import UserBankAccount
 
 
-class TransactionRepostView(LoginRequiredMixin, ListView):
+class TransactionReportView(LoginRequiredMixin, ListView):
     template_name = 'transactions/transaction_report.html'
     model = Transaction
     form_data = {}
@@ -76,59 +77,68 @@ class DepositMoneyView(TransactionCreateMixin):
     title = 'Deposit Money to Your Account'
 
     def get_initial(self):
-        initial = {'transaction_type': DEPOSIT}
+        initial = {'transaction_type': WITHDRAWAL}
         return initial
 
     def form_valid(self, form):
         amount = form.cleaned_data.get('amount')
-        account = self.request.user.account
-
-        if not account.initial_deposit_date:
+        to_account_no = form.cleaned_data.get('to_account_no')
+        to_account = UserBankAccount.objects.get(account_no=to_account_no)
+        from_account = self.request.user.account
+        print(to_account)
+        if not to_account.initial_deposit_date:
             now = timezone.now()
             next_interest_month = int(
-                12 / account.account_type.interest_calculation_per_year
+                12 / to_account.account_type.interest_calculation_per_year
             )
-            account.initial_deposit_date = now
-            account.interest_start_date = (
+            to_account.initial_deposit_date = now
+            to_account.interest_start_date = (
                 now + relativedelta(
                     months=+next_interest_month
                 )
             )
 
-        account.balance += amount
-        account.save(
+        to_account.balance += amount
+        from_account.balance -= amount
+        from_account.save(
+            update_fields=[
+                'balance'
+            ]
+        )
+        to_account.save(
             update_fields=[
                 'initial_deposit_date',
                 'balance',
                 'interest_start_date'
             ]
         )
-
+        Transaction.objects.create(account=to_account,
+                                   to_account_no=self.request.user.account.account_no,
+                                   amount=amount, 
+                                   balance_after_transaction=to_account.balance,
+                                   transaction_type=DEPOSIT)
         messages.success(
             self.request,
-            f'{amount}$ was deposited to your account successfully'
+            f'{amount} RM was deposited to the account no {to_account_no} successfully'
         )
 
         return super().form_valid(form)
 
 
-class WithdrawMoneyView(TransactionCreateMixin):
-    form_class = WithdrawForm
-    title = 'Withdraw Money from Your Account'
+class LoansView(TemplateView):
+    template_name = 'transactions/transaction_loans.html'
 
-    def get_initial(self):
-        initial = {'transaction_type': WITHDRAWAL}
-        return initial
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'transactions/profile.html'
 
-    def form_valid(self, form):
-        amount = form.cleaned_data.get('amount')
+    def get(self, request, *args, **kwargs):
+        account = self.request.user.account
+        print(account.account_no)
+        return super().get(request, *args, **kwargs)
 
-        self.request.user.account.balance -= form.cleaned_data.get('amount')
-        self.request.user.account.save(update_fields=['balance'])
-
-        messages.success(
-            self.request,
-            f'Successfully withdrawn {amount}$ from your account'
-        )
-
-        return super().form_valid(form)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'user': self.request.user,
+        })
+        return context

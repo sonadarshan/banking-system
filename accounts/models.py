@@ -80,6 +80,8 @@ class UserBankAccount(models.Model):
     account_no = models.PositiveIntegerField(unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICE)
     birth_date = models.DateField(null=True, blank=True)
+    passport = models.CharField(max_length=20, null=True, blank=True)
+    signature = models.ImageField(null=True, blank= True, upload_to='static/images/')
     balance = models.DecimalField(
         default=0,
         max_digits=12,

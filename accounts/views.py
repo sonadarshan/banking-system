@@ -4,8 +4,11 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, RedirectView
-
+from verify_email.email_handler import send_verification_email
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from .forms import UserRegistrationForm, UserAddressForm
+
 
 
 User = get_user_model()
@@ -24,25 +27,20 @@ class UserRegistrationView(TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        registration_form = UserRegistrationForm(self.request.POST)
+        registration_form = UserRegistrationForm(self.request.POST, self.request.FILES)
         address_form = UserAddressForm(self.request.POST)
 
         if registration_form.is_valid() and address_form.is_valid():
             user = registration_form.save()
             address = address_form.save(commit=False)
             address.user = user
-            address.save()
-
-            login(self.request, user)
+            # address.save()
+            user = send_verification_email(request, registration_form)
             messages.success(
                 self.request,
                 (
-                    f'Thank You For Creating A Bank Account. '
-                    f'Your Account Number is {user.account.account_no}. '
+                    f'Please verify your email to login'
                 )
-            )
-            return HttpResponseRedirect(
-                reverse_lazy('transactions:deposit_money')
             )
 
         return self.render_to_response(
@@ -61,6 +59,7 @@ class UserRegistrationView(TemplateView):
         return super().get_context_data(**kwargs)
 
 
+
 class UserLoginView(LoginView):
     template_name='accounts/user_login.html'
     redirect_authenticated_user = True
@@ -73,3 +72,4 @@ class LogoutView(RedirectView):
         if self.request.user.is_authenticated:
             logout(self.request)
         return super().get_redirect_url(*args, **kwargs)
+

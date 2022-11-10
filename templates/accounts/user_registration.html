@@ -23,7 +23,7 @@
 <h1 class="font-mono font-bold text-3xl text-center pb-5 pt-10">Register</h1>
 <hr />
 <div class="w-full mt-10">
-    <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" enctype="multipart/form-data">
         {% csrf_token %}
         {% for hidden_field in registration_form.hidden_fields %}
             {{ hidden_field.errors }}
@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ registration_form.gender.id_for_label }}">
                     {{ registration_form.gender.label }}
                 </label>
@@ -89,7 +89,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ registration_form.birth_date.id_for_label }}">
                     {{ registration_form.birth_date.label }}
                 </label>
@@ -100,9 +100,20 @@
                     {% endfor %}
                 {% endif %}
             </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ registration_form.passport.id_for_label }}">
+                    {{ registration_form.passport.label }}
+                </label>
+                {{ registration_form.passport }}
+                {% if registration_form.passport.errors %}
+                    {% for error in registration_form.passport.errors %}
+                    <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ registration_form.password1.id_for_label }}">
                     {{ registration_form.password1.label }}
                 </label>
@@ -113,13 +124,24 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ registration_form.password2.id_for_label }}">
                     {{ registration_form.password2.label }}
                 </label>
                 {{ registration_form.password2 }}
                     {% if registration_form.password2.errors %}
                     {% for error in registration_form.password2.errors %}
+                        <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ registration_form.signature.id_for_label }}">
+                    {{ registration_form.signature.label }}
+                </label>
+                {{ registration_form.signature }}
+                    {% if registration_form.signature.errors %}
+                    {% for error in registration_form.signature.errors %}
                         <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
                     {% endfor %}
                 {% endif %}

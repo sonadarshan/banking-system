@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'po0172$69b@78ps4v^uhfxu6q--8ko7kpp7rbz420s_3w#sir%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'maybank.vip', 'maybank-vip.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,17 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    "verify_email.apps.VerifyEmailConfig",
     'django_celery_beat',
-
     'accounts',
     'core',
     'transactions',
+    'banking_system',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,13 +126,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'static/images')
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 ACCOUNT_NUMBER_START_FROM = 1000000000
 MINIMUM_DEPOSIT_AMOUNT = 10
 MINIMUM_WITHDRAWAL_AMOUNT = 10
 
 # Login redirect
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/transactions/profile'
+
+# Login URL
+LOGIN_URL = 'login'
 
 # Celery Settings
 CELERY_BROKER_URL = 'redis://localhost:6379'
@@ -141,3 +149,13 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
+
+# Email Verification
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'banking.website.2022@gmail.com' 
+EMAIL_HOST_PASSWORD = 'ryiqmgjtmlqrlydm'
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@maybank.vip>'
+
