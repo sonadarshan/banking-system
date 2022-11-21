@@ -1,38 +1,88 @@
 {% extends 'core/base.html' %}
 
-{% block head_title %}{{ title }}{% endblock %}
+{% block head_title %}{% endblock %}
+{% block head_extra %}
+<style>
+body{
+        overflow: hidden;
+    }
+.main_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.sidenav{
+    width: 15%;
+    height: 90vh;
+    background-image: radial-gradient( circle 759px at -6.7% 50%, #0f0c29, #302b63, #24243e);
+}
+.right_container{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav_item{
+    width: 100%;
+    padding-left: 20px;
+    margin-top: 20px;
+    color: white;
+    text-align: left;
+}
+.nav_item:hover{
+    background: #0B87A6;
+}
+.nav_item_active{
+    width: 100%;
+    padding-left: 20px;
+    margin-top: 20px;
+    color: white;
+    text-align: left;
+    background: #0B87A6;
+}
+
+.balance_card {
+    background-image: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+    height: 100%;
+    width: 300px;
+    height: 150px;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding-top: 10px;
+    padding-right:20px ;
+    padding-left: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px gray;
+ }
+ .balance_card h4{
+    font-size: 12px;
+    font-style: italic;
+    color: #0f0c29;
+    font-weight: 300;
+ }
+ .balance_card h2{
+    font-size: 20px;
+    font-style: oblique;
+    font-weight: 700;
+    color: #0f0c29;
+ }
+ .balance_card h1{
+    margin-top: 5px;
+    font-size: 30px;
+    color: #0f0c29;
+ }
+.form_class{
+    width: 60%;
+    height: 90vh;
+    border-right: black dotted;
+}
+
+
+</style>
+{% endblock %}
 
 {% block content %}
-<h1 class="font-mono font-bold text-3xl text-center pb-5 pt-10">Money Transfer</h1>
-<hr />
-<div class="w-full mt-5">
-    <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        {% csrf_token %}
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="to_account_no">
-                Account No
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight border rounded-md border-gray-500 focus:outline-none focus:shadow-outline" name="to_account_no" id="to_account_no" type="number" required placeholder="Account_Number">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="amount">
-                Amount
-            </label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight border rounded-md border-gray-500 focus:outline-none focus:shadow-outline" name="amount" id="amount" type="number" required placeholder="Amount">
-        </div>
-        {% if form.amount.errors %}
-            {% for error in form.amount.errors %}
-                <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if form.to_account_no.errors %}
-        {% for error in form.to_account_no.errors %}
-            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
-        {% endfor %}
-        {% endif %}
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-            Submit
-        </button>
-    </form>
-</div>
+
 {% endblock %}

@@ -82,6 +82,7 @@ class UserBankAccount(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     passport = models.CharField(max_length=20, null=True, blank=True)
     signature = models.ImageField(null=True, blank= True, upload_to='static/images/')
+    profile_picture = models.ImageField(null=True, blank= True, upload_to='static/images/')
     balance = models.DecimalField(
         default=0,
         max_digits=12,

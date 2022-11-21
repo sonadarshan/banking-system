@@ -1,0 +1,13 @@
+{% extends 'accounts/base.html' %}
+
+{% block page_title %}May Bank - Login{% endblock %}
+{% block head_title %}Registration Complete{% endblock %}
+{% block corner_login_register_logout %}
+<i class="fa fa-fingerprint fa-lg"><a href="{% url 'accounts:user_login' %}"></a></i>
+<a href="{% url 'accounts:user_login' %}">Login</a>
+{% endblock %}
+{% block form %}
+<h2> Please Complete the registration by verifying your email address</h2>
+<h2> Account Details has been sent to the registered email address, Account will be activated only after the email verification</h2>
+{% endblock %}
+{% block body_button %}<a href="{% url 'accounts:user_login' %}">Already Verified?..Login</a>{% endblock %}

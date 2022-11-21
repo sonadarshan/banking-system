@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "verify_email.apps.VerifyEmailConfig",
+    "captcha",
     'django_celery_beat',
     'accounts',
     'core',
@@ -158,4 +159,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'banking.website.2022@gmail.com' 
 EMAIL_HOST_PASSWORD = 'ryiqmgjtmlqrlydm'
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@maybank.vip>'
+
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+CAPTCHA_LETTER_ROTATION = None
+CAPTCHA_MATH_CHALLENGE_OPERATOR = '+'
+CAPTCHA_NOISE_FUNCTIONS = ['captcha.helpers.noise_null']
+CAPTCHA_IMAGE_SIZE=(80,30)
 

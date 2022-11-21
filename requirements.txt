@@ -6,3 +6,5 @@ redis==3.5.3
 Django-Verify-Email==2.0.3
 django-core==1.4.1
 Pillow==9.3.0
+django-simple-captcha==0.5.17
+testfixtures==7.0.3

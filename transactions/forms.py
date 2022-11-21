@@ -52,6 +52,9 @@ class DepositForm(TransactionForm):
             )
         return amount
 
+class RequestFundsForm(forms.Form):
+    amount = forms.IntegerField(required=True)
+
 
 class TransactionDateRangeForm(forms.Form):
     daterange = forms.CharField(required=False)

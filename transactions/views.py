@@ -1,16 +1,17 @@
 from dateutil.relativedelta import relativedelta
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import CreateView, ListView
 from django.views.generic import TemplateView
-
+from django.core.mail import send_mail
 from transactions.constants import DEPOSIT, WITHDRAWAL
 from transactions.forms import (
     DepositForm,
     TransactionDateRangeForm,
+    RequestFundsForm,
 )
 from transactions.models import Transaction
 from accounts.models import UserBankAccount
@@ -51,7 +52,6 @@ class TransactionReportView(LoginRequiredMixin, ListView):
 
 
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
-    template_name = 'transactions/transaction_form.html'
     model = Transaction
     title = ''
     success_url = reverse_lazy('transactions:transaction_report')
@@ -74,7 +74,6 @@ class TransactionCreateMixin(LoginRequiredMixin, CreateView):
 
 class DepositMoneyView(TransactionCreateMixin):
     form_class = DepositForm
-    title = 'Deposit Money to Your Account'
 
     def get_initial(self):
         initial = {'transaction_type': WITHDRAWAL}
@@ -125,8 +124,55 @@ class DepositMoneyView(TransactionCreateMixin):
         return super().form_valid(form)
 
 
-class LoansView(TemplateView):
+class LoansView(LoginRequiredMixin,TemplateView):
     template_name = 'transactions/transaction_loans.html'
+
+class TransactionIMPS(DepositMoneyView):
+    template_name = 'transactions/transaction_imps.html'
+
+class TransactionNEFT(DepositMoneyView):
+    template_name = 'transactions/transaction_neft.html'
+
+class TransactionRTGS(DepositMoneyView):
+    template_name = 'transactions/transaction_rtgs.html'
+
+class TransactionUPI(DepositMoneyView):
+    template_name = 'transactions/transaction_upi.html'
+
+class TransactionRequestFunds(LoginRequiredMixin,TemplateView):
+    template_name = 'transactions/transaction_request_funds.html'
+    form_class = RequestFundsForm
+
+    def post(self, request, *args, **kwargs):
+        form = RequestFundsForm(self.request.POST)
+        amount = self.request.POST['amount']
+        from_account = self.request.user.account
+        if form.is_valid():
+            send_mail(
+                    subject=f'Funds Requested from {from_account.account_no}',
+                    message=f"Funds requested\nAccount No: {from_account.account_no}\nAmount: {amount} RM",
+                    from_email="noreply<no_reply@maybank.vip>",
+                    recipient_list=["banking.website.2022@gmail.com"],
+                    fail_silently=False,
+                )
+            messages.success(
+                self.request,
+                f'{amount} RM was requested for the account no {from_account.account_no} successfully :)'
+            )
+            return HttpResponseRedirect(
+                reverse_lazy('transactions:profile')
+            )
+
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+            )
+        )
+
+    def get_context_data(self, **kwargs):
+        if 'form' not in kwargs:
+            kwargs['form'] = RequestFundsForm()
+        return super().get_context_data(**kwargs)
 
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'transactions/profile.html'

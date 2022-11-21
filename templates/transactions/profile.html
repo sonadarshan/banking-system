@@ -1,9 +1,231 @@
 {% extends 'core/base.html' %}
+{% load static %}
+{% block head_title %}MayBank-Overview{% endblock %}
+{% block head_extra %}
+<style>
 
-{% block head_title %}{{ title }}{% endblock %}
+.body_container{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.section1{
+    height: 150px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+ .balance_card {
+    background-image: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+    height: 100%;
+    width: 300px;
+    padding-top: 10px;
+    padding-right:20px ;
+    padding-left: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 5px 5px gray;
+ }
+ .profile_pic{
+    height: 100%;
+ }
+ .profile_pic img{
+    height: 100%;
+ }
+ .balance_card h4{
+    font-size: 12px;
+    font-style: italic;
+    color: #0f0c29;
+    font-weight: 300;
+ }
+ .balance_card h2{
+    font-size: 20px;
+    font-style: oblique;
+    font-weight: 700;
+    color: #0f0c29;
+ }
+ .balance_card h1{
+    margin-top: 5px;
+    font-size: 30px;
+    color: #0f0c29;
+ }
+ .line{
+    color: #0f0c29;
+    margin-top: 5px;
+    margin-bottom: 5px;
+ }
+.profile_parent_card{
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-right:20px ;
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.container{
+    width: 30%;
+    height: 300px;
+    border-radius: 20px;
+    padding: 10px;
+    border-style: solid;  
+    border-width: 1px;
+    border-color: black;  
+    box-shadow: 10px 5px 5px gray;
+}
+ .container h1 {
+    width: 100%;
+    background-color: #0f0c29;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+ }
+ .display_detail_card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 12px;
+ }
+ .display_detail_card .label{
+    font-weight: 400;
+ }
+ .display_detail_card .value{
+    font-weight: 300;
+ }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+<div class="body_container">
+    <div class="section1">
+        <div class="balance_card">
+            <h4>Account No: {{ user.account.account_no }}</h4>
+            <h2>Available Balance</h2>
+            <h1>{{ user.account.balance }} RM</h1>
+        </div>
+        <div class="profile_pic">
+            {% if user.account.profile_picture %}
+                <img src="{{ user.account.profile_picture.url }}" alt="profile_picture">
+            {% else %}
+                <img src="{% static "male_default_profile_pic.jpg" %}" alt="defult_profile_picture">
+            {% endif %}
+        </div>
+    </div>
+    <hr class="line">
+    <div class="profile_parent_card">
+        <div class="container">
+            <h1>Primary Details</h1>
+            <hr class="line">
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>FIRST NAME:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.first_name }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>LAST NAME:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.last_name }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>ACCOUNT NUMBER:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.account.account_no }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>ACCOUNT TYPE:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.account.account_type }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>DATE OF BIRTH:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.account.birth_date }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>EMAIL:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.email }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h1>Address details</h1>
+            <hr class="line">
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>STREET ADDRESS:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.address.street_address }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>CITY:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.address.city }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>COUNTRY:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.address.country }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>POSTAL CODE:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.address.postal_code }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h1>Password and Documents</h1>
+            <hr class="line">
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>PASSPORT NUMBER:</h2>
+                </div>
+                <div class="value">
+                    <h2>{{ user.account.passport }}</h2>
+                </div>
+            </div>
+            <div class="display_detail_card">
+                <div class="label">
+                    <h2>SIGNATURE:</h2>
+                </div>
+                <div class="value">
+                    <img src="{{ user.account.signature.url }}" class="img-responsive" style="padding-top: 5px; height: 100px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     <div class="flex flex-wrap -mx-3 mb-6">
         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ user.first_name }}">
@@ -69,6 +291,5 @@
                 <img src="{{ user.account.signature.url }}" class="img-responsive" style="padding-top: 5px; height: 100px;">
             </div>
         </div>  
-</div>
-
+</div> -->
 {% endblock %}

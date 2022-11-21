@@ -1,0 +1,272 @@
+{% load static %}
+<html lang="en">
+    <head>
+        <title>May Bank - Home Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/5f8ff6ef84.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0
+                }
+            body {
+                font-family: "lato", sans-serif;
+                background-image: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+                color: white;
+                overflow: scroll;
+                }
+            a {
+                color: white;
+                text-decoration: none;
+                }
+            .top-container {
+                background-image: radial-gradient( circle 759px at -6.7% 50%, #0f0c29, #302b63, #24243e);
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                box-shadow: gray 0 0 30px;
+                border-collapse: collapse;
+                height: 70px;
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 15px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                text-align: center;
+                align-items: center;
+                position:sticky;
+            }
+            .corner_logo{
+                height: 100%;
+                padding: 5px;
+            }
+            .corner_logo img {
+                animation: rotation 2s infinite linear;
+                padding : 5px;
+                height: 100%;
+            }
+            @keyframes rotation {
+            from {
+                    transform: rotate(0deg);
+                }
+            to {
+                    transform: rotate(359deg);
+                }
+                }
+
+            .corner_login{
+                margin-right: 10px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+            .stats .fa {
+                color: white;
+                }
+            
+            .first_container{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                align-content: center;
+            }
+            
+            .main_center_heading{
+                display: flex;
+                flex-direction: row;
+                justify-items: center;
+                color: #0f0c29;
+                text-align: center;
+                align-items: center;
+                align-content: center;
+            }
+            .main-logo img{
+                animation: rotation 2s infinite linear;
+                margin: 5px;
+                height: 60px;
+            }
+
+            .main_tagline{
+                color: #0f0c29;
+                font-size: 20px;
+            }
+            .main_button{
+                margin: 10px;
+                padding: 10px;
+                background-image: radial-gradient( circle 759px at -6.7% 50%, #0f0c29, #302b63, #24243e);
+            }
+
+            .tiles_container{
+                padding: 10px;
+                margin-left: 250px;
+                display: flex;
+                flex-direction: row;
+            }
+            
+            .container h6{
+                margin-top: 10px;
+                font-size: 10px;
+                color: black;
+            }
+
+
+            @media screen and (min-width: 601px) {
+            .main_heading {
+                font-size: 60px;
+            }
+            .second_container{
+                padding: 10px;
+                margin-left: 250px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;  
+                justify-items: center;
+                text-align: center;
+                align-content: center;
+            }
+            .body-conatiner{
+                height: 80%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                padding: 10px;
+                margin: 10px;
+            }
+            .container{
+                background-color: wheat;
+                border-radius: 10px;
+                height: 200px;
+                width: 180px;
+                color: beige;
+                margin: 20px;
+                padding: 10px;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                justify-items: center;
+                box-shadow: gray 0 0 30px;
+            }
+            
+            .container i{
+                margin-top: 10px;
+                color: black;
+                font-size: 60px;
+            }
+
+            .container h1{
+                margin-top: 10px;
+                color: darkgray;
+                font-size: 20px;
+            }
+            footer{
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            }
+
+            /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+            @media screen and (max-width: 600px) {
+            .main_heading {
+                font-size: 30px;
+            }
+            .second_container{
+                width: 100%;
+                padding: 5px;
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;  
+                align-items: center;  
+                justify-items: center;
+                text-align: center; 
+            }
+            .body-conatiner{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                margin: 10px;
+            }
+            .container{
+                background-color: wheat;
+                border-radius: 10px;
+                height: 100%;
+                width: 100%;
+                color: #0f0c29;
+                margin: 10px;
+                padding: 10px;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                justify-items: center;
+                box-shadow: gray 0 0 30px;
+            }
+            .container i{
+                margin-top: 10px;
+                color: black;
+                font-size: 60px;
+            }
+
+            .container h1{
+                margin-top: 10px;
+                color: darkgray;
+                font-size: 20px;
+            }
+            footer{
+                text-align: center;
+                margin-bottom: 5px;
+                color: black;
+            }
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="top-container">
+            <div class="corner_logo">
+                <img src="{% static "logo.png" %}" alt="logo">
+            </div>
+            <div class="top-heading">
+                <h2>MayBank</h2>
+            </div>
+            <div class="corner_login">
+                <i class="fa fa-fingerprint fa-lg"><a href="{% url 'accounts:user_login' %}"></a></i>
+                <a href="{% url 'accounts:user_login' %}">Login</a>
+            </div>
+        </div>
+          <div class="body-conatiner">
+            <div class="first_container">
+                <div class="main_center_heading">
+                    <div class="main_heading"><h2>MAY</h2></div>
+                    <div class="main-logo"><img src="{% static "logo.png" %}" alt="logo"></div>
+                    <div class="main_heading"><h2>BANK</h2></div>
+                </div>
+                <div class="main_tagline">One Step banking Solution for all your needs...</div>
+                <div class="main_button">
+                    <a href="{% url 'accounts:user_registration' %}">Open New Savings Account</a>
+                </div>
+            </div>
+            <div class="second_container">
+                <div class="container">
+                    <i class="fa fa-light fa-lock"></i>
+                    <h1>Secure</h1>
+                </div>
+                <div class="container">
+                    <i class="fa fa-duotone fa-user-shield"></i>
+                    <h1>Safe</h1>
+                </div>
+                <div class="container">
+                    <i class="fa fa-light fa-users"></i>
+                    <h1>Serving People</h1>
+                </div>
+            </div>       
+          </div>
+    </body>
+    <footer>&copy; Copyright 2022 Maybank Financial Services</footer>
+</html>

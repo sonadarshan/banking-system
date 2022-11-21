@@ -1,0 +1,244 @@
+{% load static %}
+<html lang="en">
+    <head>
+         <title>{% block page_title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://kit.fontawesome.com/5f8ff6ef84.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0
+                }
+            body {
+                font-family: "lato", sans-serif;
+                background-image: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+                color: white;
+                overflow: scroll;
+                }
+            a {
+                color: white;
+                text-decoration: none;
+                }
+            .top-container {
+                background-image: radial-gradient( circle 759px at -6.7% 50%, #0f0c29, #302b63, #24243e);
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                box-shadow: gray 0 0 30px;
+                border-collapse: collapse;
+                height: 70px;
+                width: 100%;
+                padding-left: 10px;
+                padding-right: 15px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                text-align: center;
+                align-items: center;
+                position: sticky;
+            }
+            .corner_logo{
+                height: 100%;
+                padding: 5px;
+            }
+            .corner_logo img {
+                padding : 5px;
+                height: 100%;
+            }
+            @keyframes rotation {
+            from {
+                    transform: rotate(0deg);
+                }
+            to {
+                    transform: rotate(359deg);
+                }
+                }
+
+            .corner_login{
+                margin-right: 10px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+
+            .corner_login i{
+                font-size: 20px;
+            }
+            .stats .fa {
+                color: white;
+                }
+            
+            .first_container{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                align-content: center;
+            }
+            
+            .main_center_heading{
+                display: flex;
+                flex-direction: row;
+                justify-items: center;
+                color: #0f0c29;
+                text-align: center;
+                align-items: center;
+                align-content: center;
+            }
+            .main-logo img{
+                animation: rotation 2s infinite linear;
+                margin: 5px;
+                height: 60px;
+            }
+
+            .main_tagline{
+                color: #0f0c29;
+                font-size: 20px;
+            }
+            .main_button{
+                margin: 10px;
+                padding: 10px;
+                background-image: radial-gradient( circle 759px at -6.7% 50%, #0f0c29, #302b63, #24243e);
+            }
+            .input_element_login{
+                padding: 12px;
+            }
+            .input_element_login_input{
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                resize: vertical;
+            }
+            .input_element_login_label {
+                padding: 12px 12px 12px 0;
+                display: inline-block;
+                color: #0f0c29;
+            }
+            .form_class{
+                color: #0f0c29;
+            }
+            .form_submit_button_login{
+                background-color: #04AA6D;
+                color: white;
+                padding: 12px 20px;
+                margin: 12px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                float: center;
+            }
+            .form_submit_button:hover {
+                background-color: #45a049;
+            }
+            .forgot_password_link a{
+                margin-top: 20px;
+                margin-left: 12px;
+                color: #0f0c29;
+                font-size: 15px;
+                text-decoration: underline;
+            }
+            .messages{
+                margin: 12px;
+                color: #0f0c29;
+                font-size: 20px;
+            }
+            .form_container h2{
+                margin: 12px;
+                color: #0f0c29;
+                text-align: center;
+            }
+            @media screen and (min-width: 601px) {
+            .main_heading {
+                font-size: 60px;
+            }
+            .body-conatiner{
+                height: 80%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content:space-around;
+                padding: 10px;
+                margin: 10px;
+            }
+            .form_container{
+                margin: 10px;
+                padding: 20px;
+                height: 100%;
+                width: 50%;
+                background-color: wheat;
+                box-shadow: gray 0 0 30px;
+                border-radius: 20px;
+            }
+            footer{
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            }
+            /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+            @media screen and (max-width: 600px) {
+            .main_heading {
+                font-size: 30px;
+            }
+            .body-conatiner{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                margin: 10px;
+            }
+            .form_container{
+                margin: 5px;
+                padding: 10px;
+                height: 100%;
+                width: 100%;
+                background-color: wheat;
+                box-shadow: gray 0 0 30px;
+                border-radius: 10px;
+            }
+            footer{
+                text-align: center;
+                margin-bottom: 5px;
+                color: black;
+            }
+            }
+        </style>
+         {% block style %}{% endblock %}
+    </head>
+    <body>
+        <div class="top-container">
+            <div class="corner_logo">
+                <img src="{% static "logo-no-background.png" %}" alt="logo">
+            </div>
+            <div class="top-heading">
+                <h2> {% block head_title %}{% endblock %}</h2>
+            </div>
+            <div class="corner_login">
+                {% block corner_login_register_logout %}{% endblock %}
+            </div>
+        </div>
+          <div class="body-conatiner">
+            <div class="form_container">
+                {% block form %}{% endblock %}
+            </div> 
+            <div class="first_container">
+                <div class="main_center_heading">
+                    <div class="main_heading"><h2>MAY</h2></div>
+                    <div class="main-logo"><img src="{% static "logo.png" %}" alt="logo"></div>
+                    <div class="main_heading"><h2>BANK</h2></div>
+                </div>
+                <div class="main_tagline">One Step banking Solution for all your needs...</div>
+                <div class="main_button">
+                    {% block body_button %}{% endblock %}
+                </div>
+            </div>      
+          </div>
+          {% block body_script %}{% endblock %}
+    </body>
+    <footer>&copy; Copyright 2022 Maybank Financial Services</footer>
+</html>
